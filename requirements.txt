@@ -12,3 +12,4 @@ faiss-cpu
 requests
 beautifulsoup4
 lxml
+email-validator
