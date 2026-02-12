@@ -6,13 +6,13 @@ Minimal scaffold for a RAG chatbot with LangChain + LangServer
 
 - Python 3.11
 
-Create environment (venv)
+#### Create environment (venv)
 
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python --version
 
-Create environment (conda)
+#### Create environment (conda)
 
 conda create -n protiorchatbot python=3.11
 conda activate protiorchatbot
