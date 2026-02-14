@@ -1,13 +1,11 @@
 langchain
-langchain-openai
+langchain-ollama
 langchain-community
 langchain-text-splitters
 langserve
 fastapi
 uvicorn
 python-dotenv
-openai
-tiktoken
 faiss-cpu
 requests
 beautifulsoup4
