@@ -20,6 +20,8 @@ def _extract_output(data) -> str:
             return str(data["output"])
         if "answer" in data:
             return str(data["answer"])
+    if isinstance(data, list):
+        return "\n".join(str(x) for x in data)
     return str(data)
 
 def invoke_chat(question: str, timeout: int = DEFAULT_TIMEOUT) -> str:

@@ -24,7 +24,7 @@ def split_sources(text: str) -> Tuple[str, List[str]]:
         return text, []
     main, sources_block = text.split(marker, 1)
     lines = [line.strip() for line in sources_block.splitlines()]
-    urls = [lines[2:].strip() for line in lines if line.startswith("- ")]
+    urls = [line[2:].strip() for line in lines if line.startswith("- ")]
     return main.strip(), urls
 
 st.sidebar.header("Controls")
