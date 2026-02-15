@@ -5,7 +5,7 @@ from typing import Iterable, List, Optional
 
 import requests
 from bs4 import BeautifulSoup
-from langchain.schema import Document
+from langchain_core.documents import Document
 
 
 DEFAULT_SEEDS = [

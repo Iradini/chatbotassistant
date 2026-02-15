@@ -18,4 +18,5 @@ logs/
 *.log
 
 # vectorstore
-./storage/
+storage/
+.storage/
