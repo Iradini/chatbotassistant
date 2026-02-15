@@ -6,8 +6,11 @@ langserve
 fastapi
 uvicorn
 python-dotenv
+python-multipart
 faiss-cpu
 requests
 beautifulsoup4
 lxml
 email-validator
+sse-starlette
+streamlit

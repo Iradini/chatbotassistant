@@ -5,6 +5,10 @@ venv/
 # Environment files
 .env
 
+# IDE and editor files
+.vscode/
+.idea/
+
 # Bytecode and cache
 __pycache__/
 *.pyc
