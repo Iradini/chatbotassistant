@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -14,12 +15,19 @@ from src.app.ingest.indexer import index_documents
 
 def main() -> None:
     load_dotenv(ROOT / ".env")
+
+    storage_dir = os.getenv("VECTOR_DIR")
+    if storage_dir:
+        storage_dir = Path(storage_dir)
+    else: 
+        storage_dir = ROOT / "storage"
+
     try:
         docs = load_urls(DEFAULT_SEEDS)
         stats = index_documents(
             docs=docs,
             seeds=DEFAULT_SEEDS,
-            storage_dir=ROOT / "storage",
+            storage_dir=storage_dir,
         )
     except Exception as exc:
         print(f"ERROR: {exc}")
