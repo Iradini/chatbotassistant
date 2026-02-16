@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import uvicorn
 from fastapi import FastAPI
@@ -10,6 +11,24 @@ from langserve import add_routes
 from src.app.rag.chain import build_chain
 
 DEFAULT_PORT = 8000
+
+def ensure_vectorstore() -> None:
+    storage_dir = Path(os.getenv("VECTORSTORE_DIR", "storage"))
+    storage_dir.mkdir(parents=True, exist_ok=True)
+    
+    marker = storage_dir / "manifest.json"
+    if marker.exists():
+        return
+    
+    from src.app.ingest.loader import DEFAULT_SEEDS, load_urls
+    from src.app.ingest.indexer import index_documents
+
+    docs = load_urls(DEFAULT_SEEDS)
+    index_documents(
+        docs=docs,
+        seeds=DEFAULT_SEEDS,
+        storage_dir=storage_dir,
+    )
 
 
 def create_app() -> FastAPI:
@@ -33,9 +52,9 @@ def create_app() -> FastAPI:
     
     @app.get("/health")
     def health():
-        return {"status": "ok"}
-    
+        return {"status": "ok"}    
 
+    ensure_vectorstore()
     chain = build_chain()
 
     add_routes(
