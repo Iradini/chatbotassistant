@@ -5,6 +5,7 @@ langchain-text-splitters
 langserve
 fastapi
 uvicorn
+pypdf
 python-dotenv
 python-multipart
 faiss-cpu

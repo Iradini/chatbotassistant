@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from typing import Iterable, List, Optional
+from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
 from langchain_core.documents import Document
+from langchain_community.document_loaders import PyPDFLoader
 
 
 DEFAULT_SEEDS = [
@@ -65,3 +67,24 @@ def load_urls(urls: Optional[Iterable[str]] = None) -> List[Document]:
     
     return documents
 
+def load_presentation_pdf(pdf_path: str) -> List[Document]:
+    path = Path(pdf_path)
+    loader = PyPDFLoader(str(path))
+    docs = loader.load()
+
+    normalized_docs: List[Document] = []
+
+    for d in docs:
+        page_number = d.metadata.get("page", 0)
+
+        normalized_docs.append(
+            Document(
+                page_content=d.page_content,
+                metadata={
+                    "source": f"presentation{path.name}#page={page_number + 1}",
+                    "source_type": "presentation",
+                },
+            )
+        )
+
+    return normalized_docs

@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-ENV PYTHONDOWNTWRITEBYTECODE=1 \
+ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app
 
@@ -13,4 +13,4 @@ COPY . /app
 
 EXPOSE 8000
 
-CMD ["bash", "-lc", "uvicorn src.app.main:app --host 0.0.0.0 --port ${PORT}"]
+CMD ["bash", "-lc", "uvicorn src.app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
